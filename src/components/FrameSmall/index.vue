@@ -89,7 +89,7 @@
             class="editable-cell-input-wrapper"
           >
             <a-input
-              v-model:value="editableData[record.frame_id].frame_name"
+              v-model:value="frameNameEditableData[record.frame_id].frame_name"
               @pressEnter="frameNameSave(record.frame_id, record.frame_name)"
             />
             <check-outlined

@@ -175,6 +175,8 @@ export const Frame = () => {
 
       // 补片状态筛选
       if (isShow) {
+        // 默认不显示 条件满足再显示
+        isShow = false;
         switch (frameValue.value) {
           // 正常
           case "normal":
