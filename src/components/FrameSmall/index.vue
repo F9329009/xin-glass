@@ -256,6 +256,7 @@ export default defineComponent({
     margin-bottom: 8px;
   }
 }
+
 .editable-cell:hover .editable-cell-icon {
   display: inline-block;
 }
