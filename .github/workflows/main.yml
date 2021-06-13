@@ -53,4 +53,4 @@ jobs:
           # 服务器用户名
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           # 服务器网站的部署路径
-          TARGET: ${{ secrets.TARGET }}
+          TARGET: ${{ secrets.REMOTE_TARGET }}
