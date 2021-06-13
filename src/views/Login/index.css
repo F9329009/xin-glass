@@ -1,0 +1,42 @@
+.container {
+  position: relative;
+    width: 100%;
+    min-height: 100%;
+    padding: 110px 0 144px;
+    background-image: url(../../assets/img/bg.svg);
+    background-repeat: no-repeat;
+    background-position: center 110px;
+    background-size: 100%;
+}
+
+.login-box {
+  position: absolute;
+  /* width: 30%; */
+  width: 380px;
+  min-width: 260px;
+  margin: 0 auto;
+  /* top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.login-top{
+  text-align: center;
+}
+
+.login-top-title{
+  color: rgba(0,0,0,.9);
+  font-weight: 700;
+  font-size: 32px;
+}
+
+.login-top-subtitle{
+  display: inline-block;
+  width: 100%;
+  margin-top: 12px;
+  margin-bottom: 40px;
+  color: rgba(0,0,0,.6);
+  font-size: 14px;
+}
