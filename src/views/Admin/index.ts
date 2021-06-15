@@ -26,7 +26,7 @@ export const Admin = () => {
     menu_id: number;
     menu_name: string;
     permission_id: number;
-    parent_id: number;
+    parent_id: number | null;
     parent_url: string | null;
     url: string;
     url_name: string;
@@ -37,7 +37,7 @@ export const Admin = () => {
   // 导航 id 与 url 对应表
   type menuListType = {
     id: number;
-    parent_id: number;
+    parent_id: number | null;
     parent_url: string | null;
     url: string;
     url_name: string;
@@ -131,8 +131,11 @@ export const Admin = () => {
   const changeTabs = (activeKey: string) => {
     // 当前项目
     const menu: menuListType = menuList[menuList.findIndex(item => item.url === activeKey)];
+
     // 如果有父级目录则展开父级目录
-    if (openKeys.value.indexOf(menu.parent_id!) === -1) openKeys.value.push(menu.parent_id!);
+    if (menu.parent_id) {
+      if (openKeys.value.indexOf(menu.parent_id) === -1) openKeys.value.push(menu.parent_id);
+    }
 
     // 选中侧边栏当前 key
     selectedKeys.value = [menu.id];
