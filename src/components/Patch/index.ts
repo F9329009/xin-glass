@@ -11,7 +11,40 @@ import { message } from "ant-design-vue";
 
 export const Patch = () => {
   // 补片数据
-  const patchList = ref<[]>([]);
+  interface patchListItem {
+    id: number;
+    ApproveDate: string;
+    Approver: string;
+    FRWIPName: string;
+    FinishQty: number;
+    FrWIP: string;
+    ItemLength: number;
+    ItemWidth: number;
+    NetRouteCode: string;
+    PCNO: string;
+    Qty: number;
+    Remark: string;
+    RouteCode: string;
+    RouteStr: string;
+    SONO: string;
+    SOSeqNo: 7;
+    StartQty: 0;
+    ToWIPName: string;
+    WIPCode: string;
+    custbrief: string;
+    frWTName: string;
+    itemname: string;
+    log_FRWIPName: string;
+    log_FrWIP: string;
+    log_ToWIP: string;
+    log_ToWIPName: string;
+    log_approvedate: string;
+    toWTName: string;
+    type: string;
+    typename: string;
+    workcontent: string;
+  }
+  const patchList = ref<patchListItem[]>([]);
 
   //#region 日期选择
   // 时间
@@ -45,7 +78,7 @@ export const Patch = () => {
 
           // 客户名称搜索框
           clientListSearch.value = ["全部"];
-          res.message.data.forEach((item: any) => {
+          res.message.data.forEach((item: patchListItem) => {
             if (clientListSearch.value.indexOf(item.custbrief) === -1) clientListSearch.value.push(item.custbrief);
           });
 
@@ -71,11 +104,11 @@ export const Patch = () => {
 
   // 补片搜索结果列表
   const patchListSearch = computed(() => {
-    const list: any[] = [];
+    const list: patchListItem[] = [];
 
     // 清空客户列表
     clientList.value = [];
-    patchList.value.forEach((item: any) => {
+    patchList.value.forEach((item: patchListItem) => {
       // 保存客户名称
       if (clientList.value.indexOf(item.custbrief) === -1) {
         clientList.value.push(item.custbrief);

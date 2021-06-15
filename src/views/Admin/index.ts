@@ -22,14 +22,25 @@ export const Admin = () => {
   // 当前标签
   const activeKeyTabs = ref<string>("");
   // 侧边栏列表
-  const navList = ref([]);
+  interface navListItem {
+    menu_id: number;
+    menu_name: string;
+    permission_id: number;
+    parent_id: number;
+    parent_url: string | null;
+    url: string;
+    url_name: string;
+    sort: number;
+    children: [];
+  }
+  const navList = ref<navListItem[]>([]);
   // 导航 id 与 url 对应表
   type menuListType = {
     id: number;
+    parent_id: number;
+    parent_url: string | null;
     url: string;
     url_name: string;
-    parent_id: number | null;
-    parent_url: string | null;
   };
   const menuList: menuListType[] = [];
   // 当前侧边栏展开的 SubMenu
@@ -54,25 +65,25 @@ export const Admin = () => {
             });
 
             // 递归遍历导航列表查找符合当前路径的对象添加到标签页
-            const fn = (arr: [], item: any) => {
+            const recursive = (arr: navListItem[], item: string) => {
               for (let i = 0; i < arr.length; i++) {
                 menuList.push({
-                  id: arr[i]["menu_id"],
-                  url: arr[i]["url"],
-                  url_name: arr[i]["url_name"],
-                  parent_id: arr[i]["parent_id"] ? arr[i]["parent_id"] : -1,
-                  parent_url: arr[i]["parent_url"] ? arr[i]["parent_url"] : "",
+                  id: arr[i].menu_id,
+                  url: arr[i].url,
+                  url_name: arr[i].url_name,
+                  parent_id: arr[i].parent_id ? arr[i].parent_id : -1,
+                  parent_url: arr[i].parent_url ? arr[i].parent_url : "",
                 });
                 // 找到对应的路径
-                if (arr[i]["url"] === item) {
+                if (arr[i].url === item) {
                   // 判断标签是否存在
                   if (tabsList.value.findIndex(item1 => item1.key === item) === -1) {
                     // 增加一个标签页
                     tabsList.value.push({
-                      title: arr[i]["menu_name"],
+                      title: arr[i].menu_name,
                       content: ``,
                       key: item,
-                      url_name: arr[i]["url_name"],
+                      url_name: arr[i].url_name,
                     });
                   }
                   // 当前标签页
@@ -80,20 +91,20 @@ export const Admin = () => {
                   return;
                 }
 
-                if (arr[i]["children"]["length"] > 0) fn(arr[i]["children"], item);
+                if (arr[i].children.length > 0) recursive(arr[i].children, item);
               }
             };
-            fn(res.message.list, location.pathname);
+            recursive(res.message.list, location.pathname);
 
             if (tabsList.value.length <= 1) router.push({ path: "/admin" });
 
             // 当前项目
             const menu = menuList[menuList.findIndex(item => item.url === location.pathname)];
             // 如果有父级目录则展开父级目录
-            if (openKeys.value.indexOf(menu["parent_id"]!) === -1) openKeys.value.push(menu["parent_id"]!);
+            if (openKeys.value.indexOf(menu.parent_id!) === -1) openKeys.value.push(menu.parent_id!);
 
             // 侧边栏默认选中 key
-            selectedKeys.value = [menu["id"]];
+            selectedKeys.value = [menu.id];
           }
 
           console.log(menuList);
@@ -119,12 +130,12 @@ export const Admin = () => {
   // 切换标签页
   const changeTabs = (activeKey: string) => {
     // 当前项目
-    const menu = menuList[menuList.findIndex(item => item.url === activeKey)];
+    const menu: menuListType = menuList[menuList.findIndex(item => item.url === activeKey)];
     // 如果有父级目录则展开父级目录
-    if (openKeys.value.indexOf(menu["parent_id"]!) === -1) openKeys.value.push(menu["parent_id"]!);
+    if (openKeys.value.indexOf(menu.parent_id!) === -1) openKeys.value.push(menu.parent_id!);
 
     // 选中侧边栏当前 key
-    selectedKeys.value = [menu["id"]];
+    selectedKeys.value = [menu.id];
 
     // 添加标签页
     // router.push({ path: activeKey });

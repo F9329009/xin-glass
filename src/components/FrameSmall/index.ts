@@ -80,7 +80,7 @@ export const Frame = () => {
   // 公司简称
   const company_mini_name = localStorage.getItem("company_mini_name");
   // 玻璃架数据
-  interface DataItem {
+  interface FrameListItem {
     frame_id: number;
     frame_name: string;
     user_name: string;
@@ -94,7 +94,7 @@ export const Frame = () => {
     update_user: string;
     is_states: number;
   }
-  const frameList = ref<DataItem[]>([]);
+  const frameList = ref<FrameListItem[]>([]);
 
   //#region 日期选择
   // 时间
@@ -154,13 +154,13 @@ export const Frame = () => {
 
   // 搜索结果列表
   const frameListSearch = computed(() => {
-    const list: any[] = [];
+    const list: FrameListItem[] = [];
     // 公司简称
     const company_mini_name = localStorage.getItem("company_mini_name");
 
     // 清空使用单位列表
     useList.value = [];
-    frameList.value.forEach((item: any) => {
+    frameList.value.forEach((item: FrameListItem) => {
       // 保存使用单位名称
       if (useList.value.indexOf(item.user_name) === -1) {
         // useList.value.push(item.user_name);
@@ -267,9 +267,9 @@ export const Frame = () => {
   //#endregion
 
   //#region 修改玻璃架名称
-  const frameNameEditableData: UnwrapRef<Record<string, DataItem>> = reactive({});
+  const frameNameEditableData: UnwrapRef<Record<string, FrameListItem>> = reactive({});
   const frameNameEdit = (key: string) => {
-    frameNameEditableData[key] = cloneDeep(frameListSearch.value.filter(item => key === item.frame_id)[0]);
+    frameNameEditableData[key] = cloneDeep(frameListSearch.value.filter(item => key === item.frame_id.toString())[0]);
     // console.log("edit", key, frameNameEditableData[key]);
   };
   const frameNameSave = (key: string, oldValue: string) => {
@@ -295,7 +295,7 @@ export const Frame = () => {
     }
 
     // 更新到页面
-    Object.assign(frameListSearch.value.filter(item => key === item.frame_id)[0], frameNameEditableData[key]);
+    Object.assign(frameListSearch.value.filter(item => key === item.frame_id.toString())[0], frameNameEditableData[key]);
     // 删除临时数据
     delete frameNameEditableData[key];
   };
