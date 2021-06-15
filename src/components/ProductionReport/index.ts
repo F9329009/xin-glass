@@ -112,12 +112,54 @@ const processColumns = [
 ];
 
 export const ProductionReport = () => {
-  // 各班级数据
-  const productionReportList = ref([]);
+  // 各班组数据
+  interface productionReportListItem {
+    WIPCode: string;
+    WIPName: string;
+    WTCode: string;
+    WTName: string;
+    ConvertDamageArea: number;
+    ConvertProductArea: number;
+    ConvertProductArea_LB: number;
+    ConvertProductRate: number;
+    DamageArea: number;
+    ProductArea: number;
+    ProductArea_LB: number;
+    ProductRate: number;
+    SumConvertProductArea: number;
+    SumProductArea: number;
+  }
+  const productionReportList = ref<productionReportListItem[]>([]);
   // 各班组统计
-  const productionReportGroupTotal = ref([]);
+  interface productionReportGroupTotalItem {
+    WIPCode: string;
+    WIPName: string;
+    WIPCodeSum: number;
+    ConvertDamageArea: number;
+    ConvertProductArea: number;
+    ConvertProductArea_LB: number;
+    ConvertProductRate: number;
+    DamageArea: number;
+    ProductArea: number;
+    ProductArea_LB: number;
+    ProductRate: number;
+    SumConvertProductArea: number;
+    SumProductArea: number;
+  }
+  const productionReportGroupTotal = ref<productionReportGroupTotalItem[]>([]);
   // 合计
-  const productionReportAllTotal = ref({});
+  interface productionReportAllTotal {
+    ConvertDamageArea: number;
+    ConvertProductRate: number;
+    DamageArea: number;
+    ProductRate: number;
+  }
+  const productionReportAllTotal = ref<productionReportAllTotal>({
+    ConvertDamageArea: 0,
+    ConvertProductRate: 0,
+    DamageArea: 0,
+    ProductRate: 0,
+  });
 
   //#region 日期选择
   // 时间
