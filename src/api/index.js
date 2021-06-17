@@ -20,4 +20,5 @@ export const frameSmall = {
 export const alionErp = {
   ProductionReport: "/alionerp/productionreport", // 获取生产报表
   Patch: "/alionerp/patch", // 获取补片列表
+  OrderTotal: "/alionerp/ordertotal", // 获取订单统计列表
 };

@@ -11,18 +11,18 @@ export const Admin = () => {
   const companyName = localStorage.getItem("company_name");
 
   // 标签页列表数据类型
-  type tabsListType = {
+  type TabsListType = {
     title: string;
     content: string;
     key: string;
     url_name: string;
   };
   // 标签页列表
-  const tabsList = ref<tabsListType[]>([]);
+  const tabsList = ref<TabsListType[]>([]);
   // 当前标签
   const activeKeyTabs = ref<string>("");
   // 侧边栏列表
-  interface navListItem {
+  interface NavListItem {
     menu_id: number;
     menu_name: string;
     permission_id: number;
@@ -33,16 +33,16 @@ export const Admin = () => {
     sort: number;
     children: [];
   }
-  const navList = ref<navListItem[]>([]);
+  const navList = ref<NavListItem[]>([]);
   // 导航 id 与 url 对应表
-  type menuListType = {
+  type MenuListType = {
     id: number;
     parent_id: number | null;
     parent_url: string | null;
     url: string;
     url_name: string;
   };
-  const menuList: menuListType[] = [];
+  const menuList: MenuListType[] = [];
   // 当前侧边栏展开的 SubMenu
   const openKeys = ref<number[]>([]);
   // 当前侧边栏当前选中 key
@@ -65,7 +65,7 @@ export const Admin = () => {
             });
 
             // 递归遍历导航列表查找符合当前路径的对象添加到标签页
-            const recursive = (arr: navListItem[], item: string) => {
+            const recursive = (arr: NavListItem[], item: string) => {
               for (let i = 0; i < arr.length; i++) {
                 menuList.push({
                   id: arr[i].menu_id,
@@ -130,7 +130,7 @@ export const Admin = () => {
   // 切换标签页
   const changeTabs = (activeKey: string) => {
     // 当前项目
-    const menu: menuListType = menuList[menuList.findIndex(item => item.url === activeKey)];
+    const menu: MenuListType = menuList[menuList.findIndex(item => item.url === activeKey)];
 
     // 如果有父级目录则展开父级目录
     if (menu.parent_id) {

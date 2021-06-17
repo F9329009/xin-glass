@@ -19,31 +19,6 @@
         </a-button>
       </template>
       <a-descriptions size="small" :column="3">
-        <!-- <a-descriptions-item label="补片日期">
-          <a-input-group>
-            <a-range-picker
-              v-model:value="frameDateValue"
-              format="YYYY-MM-DD"
-              :placeholder="['开始时间', '结束时间']"
-              @change="onChangeDate"
-              style="vertical-align: bottom"
-            >
-              <template #renderExtraFooter>
-                <span style="color: green">
-                  请选择要查询的开始日期和结束日期(查询一天请选择同一天)
-                </span>
-              </template>
-            </a-range-picker>
-            <a-button
-              type="primary"
-              @click="getFrameList"
-              style="margin-left: 8px"
-            >
-              查询
-            </a-button>
-          </a-input-group>
-        </a-descriptions-item> -->
-
         <a-descriptions-item label="玻璃架状态">
           <a-radio-group v-model:value="frameValue" button-style="solid">
             <a-radio-button value="all">全部</a-radio-button>

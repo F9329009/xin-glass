@@ -88,8 +88,5 @@ export default defineComponent({
 </script>
 
 <style scoped>
-/* @import url("./index.css"); */
-.ant-calendar-picker {
-  width: 100%;
-}
+@import url("./index.css");
 </style>

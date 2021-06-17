@@ -11,6 +11,8 @@ const adminComponents = {
   ProductionReport: () => import("../components/ProductionReport/index.vue"),
   // 补片明细
   Patch: () => import("../components/Patch/index.vue"),
+  // 订单统计
+  OrderTotal: () => import("../components/OrderTotal/index.vue"),
 };
 
 const routes: Array<RouteRecordRaw> = [
@@ -70,6 +72,14 @@ const routes: Array<RouteRecordRaw> = [
         // component: () => import("../components/Patch/index.vue"),
         components: adminComponents,
         meta: { title: "补片明细" },
+      },
+      // 订单统计
+      {
+        path: "/admin/alionerp/ordertotal",
+        name: "OrderTotal ",
+        // component: () => import("../components/OrderTotal/index.vue"),
+        components: adminComponents,
+        meta: { title: "订单统计" },
       },
     ],
   },
