@@ -9,6 +9,54 @@ import { Moment } from "moment";
 
 import { message } from "ant-design-vue";
 
+// 各工序统计表头配置
+const processColumns = [
+  {
+    title: "工序",
+    dataIndex: "WIPName",
+  },
+  {
+    title: "包料产量",
+    dataIndex: "ProductArea",
+  },
+  {
+    title: "包料产量(折5厘)",
+    dataIndex: "ConvertProductArea",
+  },
+  {
+    title: "来料产量",
+    dataIndex: "ProductArea_LB",
+  },
+  {
+    title: "来料产量(折5厘)",
+    dataIndex: "ConvertProductArea_LB",
+  },
+  {
+    title: "合计产量",
+    dataIndex: "SumProductArea",
+  },
+  {
+    title: "合计产量(折5厘)",
+    dataIndex: "SumConvertProductArea",
+  },
+  {
+    title: "成品率",
+    dataIndex: "ProductRate",
+  },
+  {
+    title: "成品率(折5厘)",
+    dataIndex: "ConvertProductRate",
+  },
+  {
+    title: "破损量",
+    dataIndex: "DamageArea",
+  },
+  {
+    title: "破损量(折5厘)",
+    dataIndex: "ConvertDamageArea",
+  },
+];
+
 // 各班组表头配置
 const groupColumns = [
   {
@@ -63,57 +111,9 @@ const groupColumns = [
   },
 ];
 
-// 各工序统计表头配置
-const processColumns = [
-  {
-    title: "工序",
-    dataIndex: "WIPName",
-  },
-  {
-    title: "包料产量",
-    dataIndex: "ProductArea",
-  },
-  {
-    title: "包料产量(折5厘)",
-    dataIndex: "ConvertProductArea",
-  },
-  {
-    title: "来料产量",
-    dataIndex: "ProductArea_LB",
-  },
-  {
-    title: "来料产量(折5厘)",
-    dataIndex: "ConvertProductArea_LB",
-  },
-  {
-    title: "合计产量",
-    dataIndex: "SumProductArea",
-  },
-  {
-    title: "合计产量(折5厘)",
-    dataIndex: "SumConvertProductArea",
-  },
-  {
-    title: "成品率",
-    dataIndex: "ProductRate",
-  },
-  {
-    title: "成品率(折5厘)",
-    dataIndex: "ConvertProductRate",
-  },
-  {
-    title: "破损量",
-    dataIndex: "DamageArea",
-  },
-  {
-    title: "破损量(折5厘)",
-    dataIndex: "ConvertDamageArea",
-  },
-];
-
 export const ProductionReport = () => {
   // 各班组数据
-  interface productionReportListItem {
+  interface ProductionReportListItem {
     WIPCode: string;
     WIPName: string;
     WTCode: string;
@@ -129,9 +129,9 @@ export const ProductionReport = () => {
     SumConvertProductArea: number;
     SumProductArea: number;
   }
-  const productionReportList = ref<productionReportListItem[]>([]);
+  const productionReportList = ref<ProductionReportListItem[]>([]);
   // 各班组统计
-  interface productionReportGroupTotalItem {
+  interface ProductionReportGroupTotalItem {
     WIPCode: string;
     WIPName: string;
     WIPCodeSum: number;
@@ -146,15 +146,15 @@ export const ProductionReport = () => {
     SumConvertProductArea: number;
     SumProductArea: number;
   }
-  const productionReportGroupTotal = ref<productionReportGroupTotalItem[]>([]);
+  const productionReportGroupTotal = ref<ProductionReportGroupTotalItem[]>([]);
   // 合计
-  interface productionReportAllTotal {
+  interface ProductionReportAllTotal {
     ConvertDamageArea: number;
     ConvertProductRate: number;
     DamageArea: number;
     ProductRate: number;
   }
-  const productionReportAllTotal = ref<productionReportAllTotal>({
+  const productionReportAllTotal = ref<ProductionReportAllTotal>({
     ConvertDamageArea: 0,
     ConvertProductRate: 0,
     DamageArea: 0,

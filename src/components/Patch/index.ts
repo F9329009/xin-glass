@@ -11,7 +11,7 @@ import { message } from "ant-design-vue";
 
 export const Patch = () => {
   // 补片数据
-  interface patchListItem {
+  interface PatchListItem {
     id: number;
     ApproveDate: string;
     Approver: string;
@@ -44,7 +44,7 @@ export const Patch = () => {
     typename: string;
     workcontent: string;
   }
-  const patchList = ref<patchListItem[]>([]);
+  const patchList = ref<PatchListItem[]>([]);
 
   //#region 日期选择
   // 时间
@@ -78,7 +78,7 @@ export const Patch = () => {
 
           // 客户名称搜索框
           clientListSearch.value = ["全部"];
-          res.message.data.forEach((item: patchListItem) => {
+          res.message.data.forEach((item: PatchListItem) => {
             if (clientListSearch.value.indexOf(item.custbrief) === -1) clientListSearch.value.push(item.custbrief);
           });
 
@@ -104,11 +104,11 @@ export const Patch = () => {
 
   // 补片搜索结果列表
   const patchListSearch = computed(() => {
-    const list: patchListItem[] = [];
+    const list: PatchListItem[] = [];
 
     // 清空客户列表
     clientList.value = [];
-    patchList.value.forEach((item: patchListItem) => {
+    patchList.value.forEach((item: PatchListItem) => {
       // 保存客户名称
       if (clientList.value.indexOf(item.custbrief) === -1) {
         clientList.value.push(item.custbrief);
