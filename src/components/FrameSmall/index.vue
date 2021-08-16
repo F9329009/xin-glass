@@ -107,47 +107,22 @@
         <a-tag color="default" v-if="text === 0">删除</a-tag>
         <a-tag color="success" v-if="text === 1">正常</a-tag>
         <a-tag color="warning" v-if="text === 2">报废</a-tag>
-        <a-tag color="error" v-if="text === 3">丢失</a-tag>
+        <a-tag color="error" v-if="text === 3">遗失</a-tag>
       </template>
-      <!-- <template #operation="{ text }">{{ text }} </template> -->
+      <template #operation="{ text, record }">
+        <a-button
+          style="background-color: #52c41a; color: #fff"
+          @click="handleLendFrameVisible(text)"
+          v-if="record.user_name === company_mini_name"
+        >
+          借出
+        </a-button>
+        <a-button type="primary" @click="handleNewFrameVisible(text)" v-else>
+          归还
+        </a-button>
+      </template>
     </a-table>
 
-    <!-- 玻璃架列表 -->
-    <a-row type="flex" :gutter="[0, 16]">
-      <a-col :span="24" v-for="item in FrameListSearch" :key="item.id">
-        <a-card
-          style="width: 100%"
-          bodyStyle="padding: 12px; box-shadow: 0 6px 10px rgb(0 0 0 / 6%);"
-        >
-          <!-- 底部按钮 -->
-          <template class="ant-card-actions" #actions>
-            <!-- <setting-outlined key="setting" />
-            <edit-outlined key="edit" />
-            <ellipsis-outlined key="ellipsis" /> -->
-          </template>
-
-          <!-- 内容 -->
-          <div>
-            <a-row type="flex" justify="space-around" :gutter="[0, 16]">
-              <!-- 备注 -->
-              <a-col :span="18">
-                <a-tag color="#3B5999"> 备注 </a-tag>
-                <!-- <a-tag> {{ item.workcontent }} </a-tag> -->
-                <span> {{ item.id }}</span>
-              </a-col>
-              <!-- 补片原因 -->
-              <a-col
-                :span="6"
-                style="padding-left: 8px; border-left: 1px solid #f0f0f0"
-              >
-                <a-tag color="#3B5999"> {{ item.frame_name }}原因 </a-tag>
-                <a-tag> {{ item.is_states }} </a-tag>
-              </a-col>
-            </a-row>
-          </div>
-        </a-card>
-      </a-col>
-    </a-row>
     <!-- 新增玻璃架 - 对话框 -->
     <a-modal v-model:visible="newFrameVisible" title="新增玻璃架">
       <!-- 自定义页脚 -->
@@ -168,6 +143,70 @@
         placeholder="请输入你要新增的玻璃架名称"
         allow-clear
       />
+    </a-modal>
+
+    <!-- 借出玻璃架 - 对话框 -->
+    <a-modal v-model:visible="lendFrameVisible" title="借出玻璃架">
+      <!-- 自定义页脚 -->
+      <template #footer>
+        <a-button key="back" @click="handleCancelNewFrame">取消</a-button>
+        <a-button
+          key="submit"
+          type="primary"
+          :loading="newFrameLoading"
+          @click="handleOkNewFrame"
+        >
+          新增
+        </a-button>
+      </template>
+      <!-- 内容 -->
+      <a-form
+        ref="lendFrameFormRef"
+        :model="lendFrameModel"
+        :rules="lendFrameRules"
+        v-bind="lendFrameLayout"
+        layout="horizontal"
+      >
+        <a-form-item label="客户名称" has-feedback name="name">
+          <a-select
+            style="width: 160px"
+            v-model:value="userValue"
+            placeholder="请选择"
+            :dropdownMatchSelectWidth="false"
+            show-search
+            @search="handleSearchUser"
+          >
+            <a-select-option
+              :value="item"
+              v-for="item in userListSearch"
+              :key="item"
+            >
+              {{ item.user_name }}
+            </a-select-option>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item label="借出玻璃架名称" name="delivery">
+          <a-select
+            mode="multiple"
+            v-model:value="lendFrameValue"
+            placeholder="请选择需要借出的玻璃架"
+            @change="handleChangeLendFrame"
+          >
+            <a-select-option v-for="item in lendFrameList" :key="item.frame_id">
+              {{ item.frame_name }}
+            </a-select-option>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item label="押金/个" has-feedback name="name">
+          <a-input type="text" placeholder="请输入押金金额">
+            <template #prefix>
+              <MobileOutlined style="color: #1890ff" />
+            </template>
+          </a-input>
+        </a-form-item>
+      </a-form>
     </a-modal>
   </div>
 </template>

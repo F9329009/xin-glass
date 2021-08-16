@@ -7,6 +7,7 @@ export const publicApi = {
 export const user = {
   Register: "/user/register", // 注册账号
   Login: "/user/login", // 登录
+  UserList: "/user/userlist", // 获取用户列表
 };
 
 // 玻璃架模块
