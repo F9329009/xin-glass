@@ -3,7 +3,7 @@ import { cloneDeep } from "lodash-es";
 // 引入二次封装的 axios
 import { httpGet, httpPost } from "../../utils/http";
 // 引入请求接口
-import { frameSmall } from "../../api";
+import { frameSmall, user } from "../../api";
 
 import moment from "moment";
 import { Moment } from "moment";
@@ -69,11 +69,11 @@ const frameColumns = [
     title: "更新时间",
     dataIndex: "update_time",
   },
-  // {
-  //   title: "操作",
-  //   dataIndex: "frame_id",
-  //   slots: { customRender: "operation" },
-  // },
+  {
+    title: "操作",
+    dataIndex: "frame_id",
+    slots: { customRender: "operation" },
+  },
 ];
 
 export const Frame = () => {
@@ -301,6 +301,95 @@ export const Frame = () => {
   };
   //#endregion
 
+  //#region 借出玻璃架
+  // 对话框是否显示
+  const lendFrameVisible = ref<boolean>(false);
+  // 可借出玻璃架列表
+  const lendFrameList = computed(() => frameList.value.filter(item => item.is_states == 1 && item.user_name != company_mini_name));
+  // 待借出玻璃架列表
+  const lendFrameValue = ref<string[]>([]);
+  // 客户列表
+  interface UserListItem {
+    user_id: number;
+    user_name: string;
+  }
+  const userList = ref<UserListItem[]>([]);
+  const userListSearch = ref<UserListItem[]>([]);
+  // 当前客户
+  const userValue = ref<number>();
+
+  // 显示对话框
+  const handleLendFrameVisible = () => {
+    lendFrameVisible.value = true;
+    // 获取客户列表
+    httpGet(user.UserList)
+      .then((res: any) => {
+        console.log(res);
+        if (res.meta.status === 200) {
+          // 弹出提示
+          message.success(res.meta.msg);
+
+          userList.value = res.message.data;
+          userListSearch.value = res.message.data;
+        } else {
+          message.error(res.meta.msg);
+        }
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  };
+
+  // 文本框值变化时的回调
+  const handleSearchUser = (value: string) => {
+    console.log(value);
+    userListSearch.value = [];
+    userList.value.forEach(item => {
+      if (item.user_name.indexOf(value) >= 0) {
+        userListSearch.value.push(item);
+      }
+    });
+  };
+
+  // 玻璃架选择框发生改变
+  const handleChangeLendFrame = (value: number[]) => {
+    console.log(value, lendFrameValue);
+  };
+
+  // 表单校验
+  const lendFrameFormRef = ref<string>("");
+  // 表单数据接口
+  interface FormState {
+    name: string;
+    password: string;
+  }
+  // 表单数据
+  const lendFrameModel: UnwrapRef<FormState> = reactive({
+    name: "",
+    password: "",
+  });
+  // 账号校验规则
+  // const validateName = async (rule: RuleObject, value: string) => {
+  //   if (value === "") {
+  //     return Promise.reject("手机号码不能为空");
+  //   } else if (!validator.isMobilePhone(value, "zh-CN")) {
+  //     return Promise.reject("请输入正确的手机号码");
+  //   } else {
+  //     return Promise.resolve();
+  //   }
+  // };
+  // 表单验证规则
+  const lendFrameRules = {
+    // name: [{ validator: validateName, trigger: "change" }],
+    // password: [{ validator: validatePassword, trigger: "change" }],
+  };
+  // 表单布局
+  const lendFrameLayout = {
+    wrapperCol: { span: 24 },
+  };
+
+  //#endregion
+
   return {
     company_mini_name,
     frameList,
@@ -323,5 +412,18 @@ export const Frame = () => {
     frameNameEditableData,
     frameNameEdit,
     frameNameSave,
+    lendFrameVisible,
+    handleLendFrameVisible,
+    lendFrameValue,
+    handleChangeLendFrame,
+    lendFrameFormRef,
+    lendFrameModel,
+    lendFrameRules,
+    lendFrameLayout,
+    userList,
+    userListSearch,
+    userValue,
+    handleSearchUser,
+    lendFrameList,
   };
 };
