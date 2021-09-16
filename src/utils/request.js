@@ -55,13 +55,8 @@ instance.interceptors.response.use(
     }
 
     // 更新 token
-    // if (response.data.token) {
-    //   localStorage.setItem("token", response.data.token);
-    // }
-
-    // 更新 headers 携带的 token
-    if (response.config.headers.Authorization) {
-      localStorage.setItem("token", response.config.headers.Authorization);
+    if (response.headers.token) {
+      localStorage.setItem("token", response.headers.token);
     }
 
     // 对后端的一些状态码进行处理
