@@ -1,7 +1,7 @@
 <!--
  * @Author: 九玖
  * @Date: 2021-06-17 14:40:11
- * @LastEditTime: 2021-06-17 15:41:32
+ * @LastEditTime: 2021-11-02 18:23:04
  * @LastEditors: 九玖
  * @Description: 订单统计
  * @FilePath: \xin-glass\src\components\OrderTotal\index.vue
@@ -61,9 +61,10 @@
           :data-source="orderTotalList"
           :loading="orderTotalLoading"
           :pagination="false"
+          size="small"
         >
-        </a-table
-      ></a-col>
+        </a-table>
+      </a-col>
     </a-row>
   </div>
 </template>

@@ -55,8 +55,9 @@
             :data-source="productionReportGroupTotal"
             :loading="processLoading"
             :style="
-              productionReportGroupTotal.length > 0 ? { height: '700px' } : {}
+              productionReportGroupTotal.length > 0 ? { height: '500px' } : {}
             "
+            size="small"
           >
           </a-table>
         </a-card>
@@ -70,6 +71,7 @@
     :data-source="productionReportList"
     :loading="groupLoading"
     :pagination="false"
+    size="small"
   >
     <template #operation="{ text }">{{ text }}</template>
   </a-table>
