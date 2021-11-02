@@ -56,6 +56,7 @@
       :data-source="frameListSearch"
       :loading="frameLoading"
       :pagination="false"
+      size="small"
     >
       <template #frame_name="{ text, record }">
         <div class="editable-cell">
