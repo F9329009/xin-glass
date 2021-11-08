@@ -20,7 +20,7 @@ jobs:
     # 判断在指定用户或者组织的指定仓库中才执行
     if: github.repository == 'F999999999/xin-glass'
     # 判断在指定组织中才执行
-    # if: github.repository_owner == '组织名'
+    # if: github.repository_owner == '用户名（组织名）'
 
     # 指定任务执行的命令
     steps:
