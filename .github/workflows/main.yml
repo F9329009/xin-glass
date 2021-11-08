@@ -76,6 +76,6 @@ jobs:
           SOURCE: "dist/"
           # rsync flags（默认值："-rltgoDzvO"）
           # --delete 删除那些目标目录中有而源目录中没有的多余文件
-          # --delete-excluded 删除目标目录中那些被该选项指定排除的文件
-          ARGS: "-rltgoDzvO --delete --delete-excluded='.user.ini'"
+          # --exclude 排除目标目录中那些被该选项指定的文件
+          ARGS: "-rltgoDzvO --delete --exclude '.user.ini'"
 
