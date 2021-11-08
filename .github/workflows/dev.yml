@@ -14,7 +14,7 @@
 #     # 任务运行的容器类型（虚拟机环境）
 #     runs-on: ubuntu-latest
 #     # 判断在指定用户或者组织的指定仓库中才执行
-#     if: github.repository == 'F9329009/xin-glass'
+#     if: github.repository == 'F999999999/xin-glass'
 #     # 判断在指定组织中才执行
 #     # if: github.repository_owner == '组织名'
 #     # 任务执行的步骤

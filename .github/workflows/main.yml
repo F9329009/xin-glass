@@ -74,6 +74,8 @@ jobs:
           TARGET: ${{ secrets.REMOTE_TARGET }}
           # 源目录（打包的目录）
           SOURCE: "dist/"
-          # rsync 标志（--delete 参数表示先删除部署路径的所有文件|默认值："-rltgoDzvO"）
-          ARGS: "--delete -rltgoDzvO"
+          # rsync flags（默认值："-rltgoDzvO"）
+          # --delete-excluded（删除服务器部署路径的文件）
+          # --ignore-errors 即使出现 I/O 错误也进行删除
+          ARGS: "-rltgoDzvO --delete-excluded --ignore-errors"
 
