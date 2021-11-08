@@ -75,8 +75,7 @@ jobs:
           # 源目录（打包的目录）
           SOURCE: "dist/"
           # rsync flags（默认值："-rltgoDzvO"）
-          # --delete-excluded（删除服务器部署路径的文件）
-          # --ignore-errors 即使出现 I/O 错误也进行删除
-          # --exclude 需要排除的文件或文件夹
-          ARGS: "-rltgoDzvO --delete-excluded --ignore-errors --exclude '.user.ini'"
+          # --delete 删除那些目标目录中有而源目录中没有的多余文件
+          # --delete-excluded 删除目标目录中那些被该选项指定排除的文件
+          ARGS: "-rltgoDzvO --delete --delete-excluded=".user.ini""
 
