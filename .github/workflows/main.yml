@@ -9,6 +9,8 @@ on:
     # 当分支是 main 时执行工作流任务
     branches:
       - main
+    # 手动触发工作流
+    workflow_dispatch:
 
 # 工作流任务
 jobs:
